@@ -18,12 +18,21 @@ class SkeletonNode
 
   render: (ctx) ->
     ctx.save()
+    ctx.fillStyle = "rgba(0,0,0,1)"
+    ctx.strokeStyle = "#000";
+
+    if @parent?
+      ctx.beginPath()
+      ctx.moveTo(@x,@y)
+      ctx.lineTo(0,0) #parent is at 0,0 until translate
+      ctx.stroke();
+
     ctx.translate(@x,@y)
     ctx.rotate(@jointAngle * (Math.PI/180))
 
     ctx.beginPath()
-    ctx.fillStyle = "rgba(0,0,0,1)"
-    ctx.arc(0,0,10,0,Math.PI*2,true); 
+    
+    ctx.arc(0,0,5,0,Math.PI*2,true); 
     ctx.fill();
 
     @renderChildren(ctx)

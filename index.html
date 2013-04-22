@@ -22,17 +22,25 @@
     root.jointAngle = 0;
 
     var child1 = new SkeletonNode(ctx);
+    // x and y are now relative distance from root.x, root.y
     child1.x = 120;
     child1.y = 120;
     child1.jointAngle = 0;
 
     var child2 = new SkeletonNode(ctx);
+    // x and y are relative to the parent, child2.x, child2.y
     child2.x = 30;
     child2.y = 30;
 
-    child1.addChild(child2);
+    var child3 = new SkeletonNode(ctx);
+    child3.x   = 50;
+    child3.y   = 50;
+    child3.angle = 10;
 
+
+    child1.addChild(child2);
     root.addChild(child1);
+    root.addChild(child3);
 
 
     var requestAnimationFrame = window.requestAnimationFrame ||

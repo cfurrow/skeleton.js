@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Skeleton.js</title>
+  <link rel="stylesheet" type="text/css" href="style/main.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Skeleton.js</h1>
+    <canvas id="skeleton" width="960" height="500"></canvas>
+  </div>
+
+  <script type="text/javascript" src="lib/node.js.js"></script>
+  <script type="text/javascript">
+    var canvas = document.getElementById("skeleton");
+    var ctx    = canvas.getContext("2d");
+    var FPS    = 60;
+
+    var root   = new SkeletonNode(ctx);
+    root.x     = 300;
+    root.y     = 300;
+    root.jointAngle = 0;
+
+    var child1 = new SkeletonNode(ctx);
+    child1.x = 120;
+    child1.y = 120;
+    child1.jointAngle = 0;
+
+    var child2 = new SkeletonNode(ctx);
+    child2.x = 30;
+    child2.y = 30;
+
+    child1.addChild(child2);
+
+    root.addChild(child1);
+
+
+    var requestAnimationFrame = window.requestAnimationFrame ||
+                            window.webkitRequestAnimationFrame ||
+                            window.mozRequestAnimationFrame ||
+                            function(func) { setTimeout(func, 1000/ FPS); };
+    var frame = function()
+    {
+      ctx.clearRect(0,0,ctx.canvas.width,ctx.canvas.height);
+
+      root.render(ctx);
+      root.jointAngle++;
+      child1.jointAngle++;
+
+      requestAnimationFrame(frame);
+    }
+    frame();
+  </script>
+</body>
+</html>

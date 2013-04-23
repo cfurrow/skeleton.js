@@ -17,30 +17,55 @@
     var FPS    = 60;
 
     var root   = new SkeletonNode(ctx);
-    root.x     = 300;
-    root.y     = 300;
+    root.x     = 480;
+    root.y     = 100;
     root.jointAngle = 0;
 
-    var child1 = new SkeletonNode(ctx);
+    var lUpper = new SkeletonNode(ctx);
     // x and y are now relative distance from root.x, root.y
-    child1.x = 120;
-    child1.y = 120;
-    child1.jointAngle = 0;
+    lUpper.x = 120;
+    lUpper.y = 0;
+    lUpper.jointAngle = 10;
+    root.addChild(lUpper);
 
-    var child2 = new SkeletonNode(ctx);
+    var lLower = new SkeletonNode(ctx);
+    lLower.x = 120;
+    lLower.y = 0;
+    lLower.angle = 30;
+    lUpper.addChild(lLower);
+
+
+    var rUpper = new SkeletonNode(ctx);
     // x and y are relative to the parent, child2.x, child2.y
-    child2.x = 30;
-    child2.y = 30;
-
-    var child3 = new SkeletonNode(ctx);
-    child3.x   = 50;
-    child3.y   = 50;
-    child3.angle = 10;
+    rUpper.x = -120;
+    rUpper.y = 0;
+    rUpper.jointAngle = -20;
+    root.addChild(rUpper);
 
 
-    child1.addChild(child2);
-    root.addChild(child1);
-    root.addChild(child3);
+    var rLower = new SkeletonNode(ctx);
+    rLower.x   = 120;
+    rLower.y   = 0;
+    rLower.angle = -30;
+    rUpper.addChild(rLower);
+
+    var torso = new SkeletonNode(ctx);
+    torso.x  = 0;
+    torso.y  = 220;
+
+    root.addChild(torso);
+
+    var lUpperLeg = new SkeletonNode(ctx);
+    lUpperLeg.x = 40;
+    lUpperLeg.y = 90;
+    lUpperLeg.angle = -30;
+    torso.addChild(lUpperLeg);
+
+    var lLowerLeg = new SkeletonNode(ctx);
+    lLowerLeg.x = -10;
+    lLowerLeg.y = 90;
+    lLowerLeg.angle = -10;
+    lUpperLeg.addChild(lLowerLeg);
 
 
     var requestAnimationFrame = window.requestAnimationFrame ||
@@ -52,8 +77,8 @@
       ctx.clearRect(0,0,ctx.canvas.width,ctx.canvas.height);
 
       root.render(ctx);
-      root.jointAngle++;
-      child1.jointAngle++;
+      //root.jointAngle++;
+      
 
       requestAnimationFrame(frame);
     }
